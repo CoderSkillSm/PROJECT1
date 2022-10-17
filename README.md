@@ -1,0 +1,132 @@
+# PROJECT1
+import mysql.connector as sql
+import sys
+
+#connect to mysql database
+try:
+db=sql.connect(host=”localhost”,user=”root”,passwd=””,database=”test”)
+cursor=db.cursor()
+#check database is connected
+if db.is_connected():
+     print(“Database  is connected”)
+     print(“WELCOME TO  AIRWAYS MANAGEMENT
+SYSTEM”)
+except mysql.connector.Error as err:
+if err.errno==errorcode.ER_ACCESS_DENIED_ERROR:
+            print(“Something is wrong with your user name or
+password”)
+elif err.errno==errorcode.ER_BAD_DB_ERROR:
+      print(“ Datebase does not exist”)
+else:
+    print(err)
+
+#MENU FOR AIRWAYS MANAGEMNET SOFTWARE
+print(“1. TO SHOW TABLES OF AIRWAYS DEPARTMENTS”)
+print(“2. TO SHOW THE TABLE FIELDS”)
+print(“3. TO DISPLAY THE DATA”)
+print(“4. TO ADD NEW RECORD IN THE TABLE”)
+print(“5.TO SEARCH FOR NEW FLIGHT”)
+print(“6.TO CHANGE THE DESTINATION OF FLIGHT”)
+print(“7.TO CANCEL THE FLIGHT”)
+print(“8.EXIT”)
+n=int(input(“enter your choice from above:”))
+#DISPLAY ALL TABLES OF DATABASE
+if n==1:
+   cursor.execute(“show tables”)
+   for i in cursor:
+             print(i)
+#DISPLAYING ALL TABLE FIELDS
+if n==2:
+      a=input(“enter the name of the table:”)
+      cursor.execute(“desc%s”%table)
+      for i in cursor:
+          print(i)
+#DISPLAYING ALL RECORDS OF TABLE
+if n==3:
+      cursor.execute(“select * from airways”)
+      data=cursor.fetchall()
+     print(“AIRPLANE NO.”,”AIRPLANE NAME.”,” BOOKING PRICE”,”FROM”,”TO”)
+     for i in data:
+                j=str(i).split()
+               for k in j:
+                     print(k,end=” ”)
+               print()
+#inserting new record into table
+if n==4:
+            d=int(input(“enter the airplane number:”))
+            e=input(“enter the name of the plane:”)
+            f=int(input(“enter the booking price:”))
+            g=input(“enter the place from where you leaving:”)
+            h=input(“enter the place where you want to arrive:”)
+            query=”insert into bakery
+values(‘%d’,’%s’,’%d’,’%d’,’%s’)”( d,e,f,g,h)
+cursor.execute(query)
+print(“Record saved in table”)
+
+db.commit()
+#SEARCHING ITEM DETAILS
+if n==5:
+        print(“to search by airplane number”)
+        print(“to search by airplane name”)
+        z=int(input(“enter your choice:”))
+        #searching by airplane number
+        if c==1:
+                f=int(input(“enter the airplane number:”)
+                q=”select * from airplane where airplane=%d”%code
+                cursor.execute(qry)
+               data=cursor.fetchall()
+               print
+              for i in data:
+                        j=str(i).split()
+                           for k in j:
+                               print(k,end=””)
+                           print()
+#SEARCHING BY AIRPLANE NAME
+if c==2:
+       name=input(“enter the airplane name:”)
+        q=”select * from airplane where airplane name=%s”%name
+        cursor.execute(q)
+       data=cursor.fetchall()
+        print
+        for i in data:
+               j=str(i).split()
+                      for k in j:
+                         print(k,end=&quot; &quot;)
+        print()
+
+#UPDATE DESTINATION OF FLIGHT
+if n==6:
+        o=int(input(“enter the airplane number:”))
+        q=”select * from airplane where
+item_code=%d”%code
+       cursor.execute(q)
+      data=cursor.fetchall()
+      if len(data)==0:
+                      print(“This flight is not found in table”)
+else:
+    p=int(input(“enter new price of flight”))
+
+qry=”update airplane set price=%d where
+airplane number=%d”%(code)
+cursor.execute(qry)
+print(“flight price updated”)
+db.commit()
+# Delete item from table
+if ch==7:
+        code=int(input(“Enter airplane number which you want to delete”))
+        q=”select * from airplane where airplane number =%d”%code
+cursor.execute(q)
+data=cursor.fetchall()
+if len(data)==0:
+        print(“This flight is not found in table”)
+else:
+     q=”delete from bakery where
+airplane number=%”%(code)
+    cursor.execute(q)
+print(“flight Deleted from Table”)
+db.commit()
+
+#EXIT FROM PROGRAM
+if n==8:
+    sys.exit()
+db.close()
